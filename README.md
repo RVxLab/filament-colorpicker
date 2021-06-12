@@ -15,6 +15,12 @@ You can install the package via composer:
 composer require rvxlab/filament-colorpicker
 ```
 
+Then publish the assets:
+
+```bash
+php artisan vendor:publish --provider="RVxLab\FilamentColorpicker\FilamentColorpickerServiceProvider"
+```
+
 ## Usage
 
 **TODO**
