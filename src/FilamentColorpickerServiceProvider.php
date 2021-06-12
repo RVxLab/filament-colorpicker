@@ -13,6 +13,12 @@ final class FilamentColorpickerServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('filament-colorpicker')
+            ->hasAssets()
             ->hasViews();
+    }
+
+    public function packageRegistered(): void
+    {
+        $this->app->register(FilamentPluginServiceProvider::class);
     }
 }

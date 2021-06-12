@@ -12,3 +12,4 @@ vendor
 node_modules
 .php-cs-fixer.cache
 docker-compose.override.yml
+resources/dist

@@ -23,6 +23,8 @@ composer:
 	"$(EXEC)" composer $(cmd)
 
 ## Artisan
+artisan: testbench
+
 testbench:
 	"$(EXEC)" php vendor/bin/testbench $(cmd)
 
