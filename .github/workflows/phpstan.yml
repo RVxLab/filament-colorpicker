@@ -1,10 +1,10 @@
-name: Psalm
+name: PHPStan
 
 on:
   push:
     paths:
       - '**.php'
-      - 'psalm.xml.dist'
+      - 'phpstan.neon'
 
 jobs:
   psalm:
@@ -29,5 +29,5 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
 
-      - name: Run psalm
-        run: ./vendor/bin/psalm --output-format=github
+      - name: Run PHPStan
+        run: php -d memory_limit=-1 vendor/bin/phpstan analyze

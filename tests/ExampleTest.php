@@ -1,12 +1,14 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+declare(strict_types=1);
 
-class ExampleTest extends TestCase
+namespace RVxLab\FilamentColorpicker\Tests;
+
+final class ExampleTest extends TestCase
 {
-    /** @test */
-    public function true_is_true()
+    /** */
+    public function testTrue_is_true(): void
     {
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 }

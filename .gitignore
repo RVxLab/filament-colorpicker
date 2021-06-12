@@ -7,8 +7,8 @@ composer.lock
 coverage
 docs
 phpunit.xml
-psalm.xml
 testbench.yaml
 vendor
 node_modules
 .php-cs-fixer.cache
+docker-compose.override.yml

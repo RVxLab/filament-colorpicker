@@ -1,2 +1,2 @@
 providers:
-  - VendorName\Skeleton\SkeletonServiceProvider
+  - RVxLab\FilamentColorpicker\FilamentColorpickerServiceProvider

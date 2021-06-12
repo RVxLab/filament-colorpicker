@@ -1,0 +1,13 @@
+version: '3'
+services:
+  workspace:
+    build:
+      context: ./docker/workspace
+      dockerfile: Dockerfile
+      args:
+        PUID: '${PUID:-1000}'
+        PGID: '${PGID:-1000}'
+    volumes:
+      - '.:/var/www/html'
+      - '~/.composer:/home/app/.composer'
+    tty: true
