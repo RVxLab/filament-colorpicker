@@ -14,12 +14,24 @@
         }"
         x-init="picker = new FilamentColorPicker.Picker({
             parent: document.querySelector('#{{ $formComponent->getId() }}'),
-            popup: 'bottom',
+            @if (null !== $popupPosition = $formComponent->getPopupPosition())
+            popup: '{{ $popupPosition->getValue() }}',
+            @else
+            popup: false,
+            @endif
+            @if ($formComponent->getAlpha())
+            alpha: true,
+            @else
             alpha: false,
+            @endif
             editorFormat: '{{ $formComponent->getEditorFormat()->getValue() }}',
             color: value,
             onChange: function (color) {
+                @if ($formComponent->getAlpha())
+                value = color.hex;
+                @else
                 value = color.hex.slice(0, 7);
+                @endif
             }
         })"
         id="{{ $formComponent->getId() }}"
