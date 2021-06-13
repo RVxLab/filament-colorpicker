@@ -1,10 +1,11 @@
 {
     "name": "rvxlab/filament-colorpicker",
-    "description": "A colorpicker package for Laravel Filament",
+    "description": "A color picker package for Laravel Filament",
     "keywords": [
-        "rvxlab",
         "laravel",
-        "filament-colorpicker"
+        "colorpicker",
+        "filament",
+        "vanilla-picker"
     ],
     "homepage": "https://github.com/rvxlab/filament-colorpicker",
     "license": "MIT",
