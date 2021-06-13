@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RVxLab\FilamentColorpicker\Tests;
+namespace RVxLab\FilamentColorPicker\Tests;
 
 final class ExampleTest extends TestCase
 {

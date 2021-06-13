@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RVxLab\FilamentColorpicker;
+namespace RVxLab\FilamentColorPicker;
 
 use Filament\PluginServiceProvider;
 

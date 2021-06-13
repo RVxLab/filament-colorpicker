@@ -16,7 +16,7 @@
             parent: document.querySelector('#{{ $formComponent->getId() }}'),
             popup: 'bottom',
             alpha: false,
-            editorFormat: 'hex',
+            editorFormat: '{{ $formComponent->getEditorFormat()->getValue() }}',
             color: value,
             onChange: function (color) {
                 value = color.hex.slice(0, 7);

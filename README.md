@@ -18,7 +18,7 @@ composer require rvxlab/filament-colorpicker
 Then publish the assets:
 
 ```bash
-php artisan vendor:publish --provider="RVxLab\FilamentColorpicker\FilamentColorpickerServiceProvider"
+php artisan vendor:publish --provider="RVxLab\FilamentColorPicker\FilamentColorPickerServiceProvider"
 ```
 
 ## Usage

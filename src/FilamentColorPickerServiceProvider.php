@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RVxLab\FilamentColorpicker;
+namespace RVxLab\FilamentColorPicker;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-final class FilamentColorpickerServiceProvider extends PackageServiceProvider
+final class FilamentColorPickerServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {

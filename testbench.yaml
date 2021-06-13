@@ -1,2 +1,2 @@
 providers:
-  - RVxLab\FilamentColorpicker\FilamentColorpickerServiceProvider
+  - RVxLab\FilamentColorPicker\FilamentColorPickerServiceProvider

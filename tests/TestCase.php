@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RVxLab\FilamentColorpicker\Tests;
+namespace RVxLab\FilamentColorPicker\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as Orchestra;
-use RVxLab\FilamentColorpicker\FilamentColorpickerServiceProvider;
+use RVxLab\FilamentColorPicker\FilamentColorPickerServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -18,7 +18,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            FilamentColorpickerServiceProvider::class,
+            FilamentColorPickerServiceProvider::class,
         ];
     }
 }
