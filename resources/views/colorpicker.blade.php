@@ -17,11 +17,7 @@
             parent: document.querySelector('#{{ $formComponent->getId() }}'),
             color: value,
             onChange: function (color) {
-                @if ($formComponent->getAlpha())
-                value = color.hex;
-                @else
-                value = color.hex.slice(0, 7);
-                @endif
+                value = {{ $formComponent->getOutputValue() }};
             }
         })"
         id="{{ $formComponent->getId() }}"
@@ -33,6 +29,8 @@
             x-model="value"
             type="text"
             class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{ $errors->has($formComponent->getName()) ? 'border-danger-600 motion-safe:animate-shake' : 'border-gray-300' }}"
+            {!! !$formComponent->isPopupEnabled() ? 'style="margin-bottom: 0.75rem;"' : '' !!}
+            {!! !$formComponent->isPopupEnabled() ? 'readonly' : '' !!}
             {!! Filament\format_attributes($formComponent->getExtraAttributes()) !!}
         />
     </div>

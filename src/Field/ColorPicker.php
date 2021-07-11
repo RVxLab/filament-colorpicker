@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace RVxLab\FilamentColorPicker\Field;
 
 use Filament\Resources\Forms\Components\Field;
+use PHPStan\Command\OutputStyle;
+use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
+use RVxLab\FilamentColorPicker\Enum\OutputFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
 
 /**
@@ -38,11 +41,9 @@ class ColorPicker extends Field implements \JsonSerializable
     protected function setUp(): void
     {
         $this->configure(function (): void {
-            if ($this->alpha) {
-                $this->addRules('regex:/^#[0-9a-f]{8}$/i');
-            } else {
-                $this->addRules('regex:/^#[0-9a-f]{6}$/i');
-            }
+            $this->addRules(
+                'regex:' . $this->determineColorPattern()
+            );
         });
     }
 
@@ -84,17 +85,56 @@ class ColorPicker extends Field implements \JsonSerializable
         return $this->popupPosition;
     }
 
+    public function isPopupEnabled(): bool
+    {
+        return $this->popupPosition !== null;
+    }
+
     public function getAlpha(): bool
     {
         return $this->alpha;
+    }
+
+    public function getOutputValue(): string
+    {
+        if ($this->alpha) {
+            return match ($this->editorFormat->getValue()) {
+                EditorFormat::RGB => OutputFormat::RGBA,
+                EditorFormat::HSL => OutputFormat::HSLA,
+                default => OutputFormat::HEXA,
+            };
+        }
+
+        return match ($this->editorFormat->getValue()) {
+            EditorFormat::RGB => OutputFormat::RGB,
+            EditorFormat::HSL => OutputFormat::HSL,
+            default => OutputFormat::HEX,
+        };
     }
 
     public function jsonSerialize(): mixed
     {
         return [
             'popup' => $this->popupPosition?->getValue() ?? false,
-            'alpha' => $this->getAlpha(),
-            'editorFormat' => $this->getEditorFormat()->getValue(),
+            'alpha' => $this->alpha,
+            'editorFormat' => $this->editorFormat->getValue(),
         ];
+    }
+
+    protected function determineColorPattern(): string
+    {
+        if ($this->alpha) {
+            return match ($this->editorFormat->getValue()) {
+                EditorFormat::RGB => ColorPattern::RGBA,
+                EditorFormat::HSL => ColorPattern::HSLA,
+                default => ColorPattern::HEXA,
+            };
+        }
+
+        return match ($this->editorFormat->getValue()) {
+            EditorFormat::RGB => ColorPattern::RGB,
+            EditorFormat::HSL => ColorPattern::HSL,
+            default => ColorPattern::HEX,
+        };
     }
 }
