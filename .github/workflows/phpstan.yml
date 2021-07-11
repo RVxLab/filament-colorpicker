@@ -7,8 +7,8 @@ on:
       - 'phpstan.neon'
 
 jobs:
-  psalm:
-    name: psalm
+  phpstan:
+    name: phpstan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
