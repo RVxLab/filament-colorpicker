@@ -13,18 +13,8 @@
             picker: null,
         }"
         x-init="picker = new FilamentColorPicker.Picker({
+            ...JSON.parse('{{ json_encode($formComponent) }}'),
             parent: document.querySelector('#{{ $formComponent->getId() }}'),
-            @if (null !== $popupPosition = $formComponent->getPopupPosition())
-            popup: '{{ $popupPosition->getValue() }}',
-            @else
-            popup: false,
-            @endif
-            @if ($formComponent->getAlpha())
-            alpha: true,
-            @else
-            alpha: false,
-            @endif
-            editorFormat: '{{ $formComponent->getEditorFormat()->getValue() }}',
             color: value,
             onChange: function (color) {
                 @if ($formComponent->getAlpha())

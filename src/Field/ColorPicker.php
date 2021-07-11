@@ -11,7 +11,7 @@ use RVxLab\FilamentColorPicker\Enum\PopupPosition;
 /**
  * @method static self make(string $name)
  */
-final class ColorPicker extends Field
+class ColorPicker extends Field implements \JsonSerializable
 {
     /**
      * @var string
@@ -87,5 +87,14 @@ final class ColorPicker extends Field
     public function getAlpha(): bool
     {
         return $this->alpha;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'popup' => $this->popupPosition?->getValue() ?? false,
+            'alpha' => $this->getAlpha(),
+            'editorFormat' => $this->getEditorFormat()->getValue(),
+        ];
     }
 }

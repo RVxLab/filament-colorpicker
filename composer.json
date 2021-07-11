@@ -28,7 +28,6 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "nunomaduro/collision": "^5.3",
         "nunomaduro/larastan": "^0.7.6",
-        "nunomaduro/laravel-mojito": "^0.2.8",
         "orchestra/testbench": "^6.15",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-phpunit": "^0.12.19",

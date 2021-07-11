@@ -19,8 +19,8 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="Rvxlab Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Feature tests">
+            <directory>tests/Feature</directory>
         </testsuite>
     </testsuites>
     <coverage>
