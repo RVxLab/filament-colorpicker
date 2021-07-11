@@ -7,7 +7,13 @@ services:
       args:
         PUID: '${PUID:-1000}'
         PGID: '${PGID:-1000}'
+    environment:
+      RAY_REMOTE_PATH: ${RAY_REMOTE_PATH:-localhost}
+      RAY_LOCAL_PATH: ${RAY_LOCAL_PATH}
+      RAY_HOST: ${RAY_HOST}
     volumes:
       - '.:/var/www/html'
       - '~/.composer:/home/app/.composer'
     tty: true
+    extra_hosts:
+      - "${RAY_HOST}:host-gateway"
