@@ -20,6 +20,8 @@ final class ColorPickerTest extends TestCase
             'popup' => PopupPosition::RIGHT,
             'alpha' => true,
             'editorFormat' => EditorFormat::HEX,
+            'cancelButton' => false,
+            'layout' => 'default',
         ], $field->jsonSerialize());
     }
 
@@ -28,12 +30,16 @@ final class ColorPickerTest extends TestCase
         $field = ColorPicker::make('color')
             ->popupPosition(PopupPosition::LEFT())
             ->alpha(false)
-            ->editorFormat(EditorFormat::RGB());
+            ->editorFormat(EditorFormat::RGB())
+            ->layout('some-layout')
+            ->cancelButton(true);
 
         self::assertEquals([
             'popup' => PopupPosition::LEFT,
             'alpha' => false,
             'editorFormat' => EditorFormat::RGB,
+            'cancelButton' => true,
+            'layout' => 'some-layout',
         ], $field->jsonSerialize());
     }
 
@@ -46,6 +52,8 @@ final class ColorPickerTest extends TestCase
             'popup' => null,
             'alpha' => true,
             'editorFormat' => EditorFormat::HEX,
+            'cancelButton' => false,
+            'layout' => 'default',
         ], $field->jsonSerialize());
     }
 

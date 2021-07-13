@@ -27,6 +27,10 @@ class ColorPicker extends Field implements \JsonSerializable
 
     protected bool $alpha = true;
 
+    protected string $layout = 'default';
+
+    protected bool $cancelButton = false;
+
     /**
      * @param string $name
      */
@@ -75,6 +79,20 @@ class ColorPicker extends Field implements \JsonSerializable
         return $this;
     }
 
+    public function layout(string $layout): self
+    {
+        $this->layout = $layout;
+
+        return $this;
+    }
+
+    public function cancelButton(bool $showCancelButton): self
+    {
+        $this->cancelButton = $showCancelButton;
+
+        return $this;
+    }
+
     public function getEditorFormat(): EditorFormat
     {
         return $this->editorFormat;
@@ -118,6 +136,8 @@ class ColorPicker extends Field implements \JsonSerializable
             'popup' => $this->popupPosition?->getValue() ?? false,
             'alpha' => $this->alpha,
             'editorFormat' => $this->editorFormat->getValue(),
+            'cancelButton' => $this->cancelButton,
+            'layout' => $this->layout,
         ];
     }
 
