@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RVxLab\FilamentColorPicker\Field;
 
 use Filament\Resources\Forms\Components\Field;
-use PHPStan\Command\OutputStyle;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
 use RVxLab\FilamentColorPicker\Enum\OutputFormat;
