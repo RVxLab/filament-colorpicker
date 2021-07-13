@@ -29,6 +29,7 @@ final class ColorPatternTest extends TestCase
             [ ColorPattern::RGB, 'rgb(1, 2, 3)' ],
             [ ColorPattern::RGBA, 'rgba(100,200,255,1)' ],
             [ ColorPattern::RGBA, 'rgba(1, 2, 3, 0.123)' ],
+            [ ColorPattern::RGBA, 'rgba(1, 2, 3, .123)' ],
             [ ColorPattern::HSL, 'hsl(123.4,100%,20.4%)' ],
             [ ColorPattern::HSL, 'hsl(55, 99.5%, 13.37%)' ],
             [ ColorPattern::HSLA, 'hsla(33.4,50.1%,20%,0.432)' ],
