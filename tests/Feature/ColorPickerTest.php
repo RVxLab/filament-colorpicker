@@ -7,7 +7,7 @@ namespace RVxLab\FilamentColorPicker\Tests\Feature;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
 use RVxLab\FilamentColorPicker\Enum\OutputFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
-use RVxLab\FilamentColorPicker\Field\ColorPicker;
+use RVxLab\FilamentColorPicker\Forms\ColorPicker;
 use RVxLab\FilamentColorPicker\Tests\TestCase;
 
 final class ColorPickerTest extends TestCase

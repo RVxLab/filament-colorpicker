@@ -8,10 +8,12 @@ use Filament\PluginServiceProvider;
 
 final class FilamentPluginServiceProvider extends PluginServiceProvider
 {
+    public static string $name = 'Colorpicker';
+
     /**
      * @var string[]
      */
-    protected $scripts = [
-        'rvxlab-filament-colorpicker' => '/vendor/filament-colorpicker/filament-colorpicker.js',
+    protected array $scripts = [
+        'rvxlab-filament-colorpicker' => __DIR__ . '/../resources/dist/filament-colorpicker.js',
     ];
 }

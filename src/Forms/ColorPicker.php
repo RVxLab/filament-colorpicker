@@ -2,23 +2,17 @@
 
 declare(strict_types=1);
 
-namespace RVxLab\FilamentColorPicker\Field;
+namespace RVxLab\FilamentColorPicker\Forms;
 
-use Filament\Resources\Forms\Components\Field;
+use Filament\Forms\Components\Field;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
 use RVxLab\FilamentColorPicker\Enum\OutputFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
 
-/**
- * @method static self make(string $name)
- */
-class ColorPicker extends Field implements \JsonSerializable
+class ColorPicker extends Field
 {
-    /**
-     * @var string
-     */
-    protected $view = 'filament-colorpicker::colorpicker';
+    protected string $view = 'filament-colorpicker::colorpicker';
 
     protected EditorFormat $editorFormat;
 
@@ -30,23 +24,26 @@ class ColorPicker extends Field implements \JsonSerializable
 
     protected bool $cancelButton = false;
 
-    /**
-     * @param string $name
-     */
-    public function __construct($name)
+    protected function setUp(): void
     {
-        parent::__construct($name);
+        parent::setUp();
 
         $this->editorFormat = EditorFormat::HEX();
         $this->popupPosition = PopupPosition::RIGHT();
-    }
 
-    protected function setUp(): void
-    {
-        $this->configure(function (): void {
-            $this->addRules(
-                'regex:' . $this->determineColorPattern()
-            );
+        $this->afterStateHydrated(function (ColorPicker $component, $state): void {
+            $popupPosition = $this->popupPosition?->getValue();
+
+            $component->state([
+                'options' => [
+                    'editorFormat' => $this->editorFormat->getValue(),
+                    'popupPosition' => $popupPosition,
+                    'alpha' => $this->alpha,
+                    'layout' => $this->layout,
+                    'cancelButton' => $this->cancelButton,
+                    'popupEnabled' => null !== $popupPosition,
+                ],
+            ]);
         });
     }
 
@@ -110,34 +107,6 @@ class ColorPicker extends Field implements \JsonSerializable
     public function getAlpha(): bool
     {
         return $this->alpha;
-    }
-
-    public function getOutputValue(): string
-    {
-        if ($this->alpha) {
-            return match ($this->editorFormat->getValue()) {
-                EditorFormat::RGB => OutputFormat::RGBA,
-                EditorFormat::HSL => OutputFormat::HSLA,
-                default => OutputFormat::HEXA,
-            };
-        }
-
-        return match ($this->editorFormat->getValue()) {
-            EditorFormat::RGB => OutputFormat::RGB,
-            EditorFormat::HSL => OutputFormat::HSL,
-            default => OutputFormat::HEX,
-        };
-    }
-
-    public function jsonSerialize(): mixed
-    {
-        return [
-            'popup' => $this->popupPosition?->getValue() ?? false,
-            'alpha' => $this->alpha,
-            'editorFormat' => $this->editorFormat->getValue(),
-            'cancelButton' => $this->cancelButton,
-            'layout' => $this->layout,
-        ];
     }
 
     protected function determineColorPattern(): string

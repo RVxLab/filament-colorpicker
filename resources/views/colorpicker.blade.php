@@ -1,37 +1,66 @@
-<x-forms::field-group
-    :column-span="$formComponent->getColumnSpan()"
-    :error-key="$formComponent->getName()"
-    :for="$formComponent->getId()"
-    :help-message="$formComponent->getHelpMessage()"
-    :hint="$formComponent->getHint()"
-    :label="$formComponent->getLabel()"
-    :required="$formComponent->isRequired()"
+<x-forms::field-wrapper
+    :id="$getId()"
+    :label="$getLabel()"
+    :label-sr-only="$isLabelHidden()"
+    :helper-text="$getHelperText()"
+    :hint="$getHint()"
+    :required="$isRequired()"
+    :state-path="$getStatePath()"
 >
     <div
         x-data="{
-            value: @entangle($formComponent->getName()){{ Str::of($formComponent->getBindingAttribute())->after('wire:model') }},
             picker: null,
+            state: $wire.entangle('{{ $getStatePath() }}'),
+            formatters: {
+                hex: color => color.hex.slice(0, 7),
+                hexa: color => color.hex,
+                rgb: color => color.rgbString,
+                rgba: color => color.rgbaString,
+                hsl: color => color.hslString,
+                hsla: color => color.hslaString,
+            },
+            value: '',
         }"
-        x-init="picker = new FilamentColorPicker.Picker({
-            ...JSON.parse('{{ json_encode($formComponent) }}'),
-            parent: document.querySelector('#{{ $formComponent->getId() }}'),
-            color: value,
-            onChange: function (color) {
-                value = {{ $formComponent->getOutputValue() }};
-            }
-        })"
-        id="{{ $formComponent->getId() }}"
+        x-init="() => {
+            value = state.value || '';
+            $nextTick(() => {
+                picker = new FilamentColorPicker.Picker({
+                    ...state,
+                    parent: document.getElementById('{{ $getId() }}_picker'),
+                    color: value,
+                    onChange: function (color) {
+                        let editorFormat = state.options.editorFormat;
+
+                        if (state.options.alpha) {
+                            editorFormat += 'a';
+                        }
+
+                        const formatter = formatters[editorFormat];
+
+                        if (!formatter) {
+                            throw new Error(`Unknown formatter for editor format ${editorFormat}`);
+                        }
+
+                        value = formatters[editorFormat](color);
+                    },
+                    onClose: function () {
+                        console.log(value);
+                    },
+                });
+            })
+        }"
     >
-        <input
-            {!! $formComponent->isDisabled() ? 'disabled' : null !!}
-            {!! $formComponent->getId() ? "id=\"{$formComponent->getId()}\"" : null !!}
-            {!! $formComponent->isRequired() ? 'required' : null !!}
-            x-model="value"
-            type="text"
-            class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{ $errors->has($formComponent->getName()) ? 'border-danger-600 motion-safe:animate-shake' : 'border-gray-300' }}"
-            {!! !$formComponent->isPopupEnabled() ? 'style="margin-bottom: 0.75rem;"' : '' !!}
-            {!! !$formComponent->isPopupEnabled() ? 'readonly' : '' !!}
-            {!! Filament\format_attributes($formComponent->getExtraAttributes()) !!}
-        />
+        <div
+            id="{{ $getId() }}_picker"
+        >
+            <input
+                x-model="value"
+                type="text"
+{{--                class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{ $errors->has($formComponent->getName()) ? 'border-danger-600 motion-safe:animate-shake' : 'border-gray-300' }}"--}}
+                class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                :style="state.options.popupEnabled ? 'margin-bottom: 0.75rem' : ''"
+                :readonly="!state.options.popupEnabled"
+            />
+        </div>
     </div>
-</x-forms::field-group>
+</x-forms::field-wrapper>
