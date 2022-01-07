@@ -31,7 +31,7 @@ class ColorPicker extends Field
         $this->editorFormat = EditorFormat::HEX();
         $this->popupPosition = PopupPosition::RIGHT();
 
-        $this->afterStateHydrated(function (ColorPicker $component, $state): void {
+        $this->afterStateHydrated(function (self $component, $state): void {
             $popupPosition = $this->popupPosition?->getValue();
 
             $component->state([
