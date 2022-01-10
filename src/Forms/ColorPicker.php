@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace RVxLab\FilamentColorPicker\Forms;
 
+use Filament\Forms\Components\Concerns\HasExtraAlpineAttributes;
 use Filament\Forms\Components\Field;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
-use RVxLab\FilamentColorPicker\Enum\OutputFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
 
 class ColorPicker extends Field
 {
+    use HasExtraAlpineAttributes;
+
     protected string $view = 'filament-colorpicker::colorpicker';
 
     protected EditorFormat $editorFormat;
@@ -31,19 +33,8 @@ class ColorPicker extends Field
         $this->editorFormat = EditorFormat::HEX();
         $this->popupPosition = PopupPosition::RIGHT();
 
-        $this->afterStateHydrated(function (self $component, $state): void {
-            $popupPosition = $this->popupPosition?->getValue();
-
-            $component->state([
-                'options' => [
-                    'editorFormat' => $this->editorFormat->getValue(),
-                    'popupPosition' => $popupPosition,
-                    'alpha' => $this->alpha,
-                    'layout' => $this->layout,
-                    'cancelButton' => $this->cancelButton,
-                    'popupEnabled' => null !== $popupPosition,
-                ],
-            ]);
+        $this->afterStateHydrated(function (self $component, ?string $state): void {
+            $component->state($state);
         });
     }
 
@@ -54,11 +45,21 @@ class ColorPicker extends Field
         return $this;
     }
 
+    public function getEditorFormat(): EditorFormat
+    {
+        return $this->editorFormat;
+    }
+
     public function popupPosition(PopupPosition $popupPosition): self
     {
         $this->popupPosition = $popupPosition;
 
         return $this;
+    }
+
+    public function getPopupPosition(): ?PopupPosition
+    {
+        return $this->popupPosition;
     }
 
     public function disablePopup(): self
@@ -68,11 +69,21 @@ class ColorPicker extends Field
         return $this;
     }
 
+    public function isPopupEnabled(): bool
+    {
+        return $this->popupPosition !== null;
+    }
+
     public function alpha(bool $useAlphaChannel): self
     {
         $this->alpha = $useAlphaChannel;
 
         return $this;
+    }
+
+    public function getAlpha(): bool
+    {
+        return $this->alpha;
     }
 
     public function layout(string $layout): self
@@ -82,6 +93,11 @@ class ColorPicker extends Field
         return $this;
     }
 
+    public function getLayout(): string
+    {
+        return $this->layout;
+    }
+
     public function cancelButton(bool $showCancelButton): self
     {
         $this->cancelButton = $showCancelButton;
@@ -89,24 +105,9 @@ class ColorPicker extends Field
         return $this;
     }
 
-    public function getEditorFormat(): EditorFormat
+    public function getCancelButton(): bool
     {
-        return $this->editorFormat;
-    }
-
-    public function getPopupPosition(): ?PopupPosition
-    {
-        return $this->popupPosition;
-    }
-
-    public function isPopupEnabled(): bool
-    {
-        return $this->popupPosition !== null;
-    }
-
-    public function getAlpha(): bool
-    {
-        return $this->alpha;
+        return $this->cancelButton;
     }
 
     protected function determineColorPattern(): string
