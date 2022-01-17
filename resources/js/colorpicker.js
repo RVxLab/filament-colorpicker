@@ -28,7 +28,6 @@ function make($wire, options) {
     };
 
     if (null === popupPosition) {
-        console.log(debounceTimeout);
         updateLivewireProperty = debounce(updateLivewireProperty, debounceTimeout);
     }
 

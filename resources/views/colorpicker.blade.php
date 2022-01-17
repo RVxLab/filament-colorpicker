@@ -15,7 +15,7 @@
             init() {
                 window.addEventListener('filament-color-picker:init', () => {
                     this.picker = window.FilamentColorPicker.make($wire, {
-                        parent: document.getElementById('{{ $getId() }}_picker'),
+                        parent: document.getElementById('filament-color-picker'),
                         ...{{ Js::from($getPickerOptions()) }},
                     });
                 });
@@ -23,7 +23,7 @@
         }"
     >
         <div
-            id="{{ $getId() }}_picker"
+            id="filament-color-picker"
         >
             <input
                 type="text"

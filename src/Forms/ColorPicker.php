@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RVxLab\FilamentColorPicker\Forms;
 
-use Filament\Forms\Components\Concerns\HasExtraAlpineAttributes;
 use Filament\Forms\Components\Field;
 use Illuminate\Contracts\View\View;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
@@ -13,8 +12,6 @@ use RVxLab\FilamentColorPicker\Enum\PopupPosition;
 
 class ColorPicker extends Field
 {
-    use HasExtraAlpineAttributes;
-
     protected string $view = 'filament-colorpicker::colorpicker';
 
     protected EditorFormat $editorFormat;
