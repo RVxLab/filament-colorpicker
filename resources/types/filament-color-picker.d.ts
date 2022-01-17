@@ -10,6 +10,7 @@ declare global {
         cancelButton: boolean;
         statePath: string;
         template: string | null;
+        debounceTimeout: number;
     };
 
     type ColorPicker = {

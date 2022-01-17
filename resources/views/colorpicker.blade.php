@@ -24,6 +24,7 @@
                             'cancelButton' => $getCancelButton(),
                             'statePath' => $getStatePath(),
                             'template' => $getTemplate(),
+                            'debounceTimeout' => $getDebounceTimeout(),
                         ]) }},
                     });
                 });
@@ -36,9 +37,8 @@
             <input
                 type="text"
                 x-model="color"
-{{--                class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{ $errors->has($formComponent->getName()) ? 'border-danger-600 motion-safe:animate-shake' : 'border-gray-300' }}"--}}
                 class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                style="{{ $isPopupEnabled() ? 'margin-bottom: 0.75rem' : '' }}"
+                style="{{ $isPopupEnabled() ? '' : 'margin-bottom: 0.75rem' }}"
                 readonly="{{ $isPopupEnabled() ? '' : 'readonly' }}"
                 data-color-picker-field
             />

@@ -1,4 +1,5 @@
 import Picker from 'vanilla-picker';
+import { debounce } from 'lodash';
 
 const formatters = {
     hex: color => color.hex.slice(0, 7),
@@ -10,7 +11,7 @@ const formatters = {
 };
 
 function make($wire, options) {
-    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template } = options;
+    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template, debounceTimeout } = options;
 
     const initialColor = $wire.get(statePath);
 
@@ -20,6 +21,15 @@ function make($wire, options) {
 
     if (alpha) {
         formatterKey += 'a';
+    }
+
+    let updateLivewireProperty = function (color) {
+        $wire.set(statePath, color);
+    };
+
+    if (null === popupPosition) {
+        console.log(debounceTimeout);
+        updateLivewireProperty = debounce(updateLivewireProperty, debounceTimeout);
     }
 
     return new Picker({
@@ -32,11 +42,17 @@ function make($wire, options) {
         template,
         color: initialColor,
         onChange: color => {
-            colorPickerInput.value = formatters[formatterKey](color);
+            let newColor = formatters[formatterKey](color);
+            colorPickerInput.value = newColor;
+
+            if (null === popupPosition) {
+                updateLivewireProperty(newColor);
+            }
         },
         onClose: color => {
             const newColor = formatters[formatterKey](color);
-            $wire.set(statePath, newColor);
+
+            updateLivewireProperty(newColor);
         },
     });
 }

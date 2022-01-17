@@ -6,7 +6,6 @@ namespace RVxLab\FilamentColorPicker\Forms;
 
 use Filament\Forms\Components\Concerns\HasExtraAlpineAttributes;
 use Filament\Forms\Components\Field;
-use Illuminate\Validation\Rule;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
@@ -28,6 +27,8 @@ class ColorPicker extends Field
     protected bool $cancelButton = false;
 
     protected ?string $colorPickerTemplate = null;
+
+    protected int $debounceTimeout = 500;
 
     protected function setUp(): void
     {
@@ -131,6 +132,18 @@ class ColorPicker extends Field
         }
 
         return (string) view($this->colorPickerTemplate);
+    }
+
+    public function debounceTimeout(int $timeout): self
+    {
+        $this->debounceTimeout = $timeout;
+
+        return $this;
+    }
+
+    public function getDebounceTimeout(): int
+    {
+        return $this->debounceTimeout;
     }
 
     protected function determineColorPattern(): string
