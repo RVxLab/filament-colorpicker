@@ -6,6 +6,7 @@ namespace RVxLab\FilamentColorPicker\Forms;
 
 use Filament\Forms\Components\Concerns\HasExtraAlpineAttributes;
 use Filament\Forms\Components\Field;
+use Illuminate\Contracts\View\View;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
@@ -34,6 +35,11 @@ class ColorPicker extends Field
     {
         parent::setUp();
 
+        $this->initialize();
+    }
+
+    public function initialize(): void
+    {
         $this->editorFormat = EditorFormat::HEX();
         $this->popupPosition = PopupPosition::RIGHT();
 
@@ -41,7 +47,7 @@ class ColorPicker extends Field
             $component->state($state);
         });
 
-        $this->rule(function (ColorPicker $component) {
+        $this->rule(function (self $component) {
             return "regex:{$component->determineColorPattern()}";
         });
     }
@@ -118,20 +124,20 @@ class ColorPicker extends Field
         return $this->cancelButton;
     }
 
-    public function template(string $viewName): self
+    public function template(View | string $template): self
     {
-        $this->colorPickerTemplate = $viewName;
+        if ($template instanceof View) {
+            $this->colorPickerTemplate = $template->render();
+        } else {
+            $this->colorPickerTemplate = $template;
+        }
 
         return $this;
     }
 
     public function getTemplate(): ?string
     {
-        if (!$this->colorPickerTemplate) {
-            return null;
-        }
-
-        return (string)view($this->colorPickerTemplate);
+        return $this->colorPickerTemplate;
     }
 
     public function debounceTimeout(int $timeout): self
@@ -146,6 +152,9 @@ class ColorPicker extends Field
         return $this->debounceTimeout;
     }
 
+    /**
+     * @return array{editorFormat: string, popupPosition: ?string, alpha: bool, layout: string, cancelButton: bool, statePath: string, template: ?string, debounceTimeout: int}
+     */
     public function getPickerOptions(): array
     {
         return [

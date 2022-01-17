@@ -4,30 +4,35 @@ declare(strict_types=1);
 
 namespace RVxLab\FilamentColorPicker\Tests\Feature;
 
+use Filament\Forms\ComponentContainer;
+use Illuminate\Support\Facades\View;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
-use RVxLab\FilamentColorPicker\Enum\OutputFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
 use RVxLab\FilamentColorPicker\Forms\ColorPicker;
+use RVxLab\FilamentColorPicker\Tests\Fixtures\Livewire;
 use RVxLab\FilamentColorPicker\Tests\TestCase;
 
 final class ColorPickerTest extends TestCase
 {
     public function testDefaults(): void
     {
-        $field = ColorPicker::make('color');
+        $field = $this->makeComponent();
 
         self::assertEquals([
-            'popup' => PopupPosition::RIGHT,
+            'editorFormat' => 'hex',
+            'popupPosition' => 'right',
             'alpha' => true,
-            'editorFormat' => EditorFormat::HEX,
-            'cancelButton' => false,
             'layout' => 'default',
-        ], $field->jsonSerialize());
+            'cancelButton' => false,
+            'statePath' => 'color',
+            'template' => null,
+            'debounceTimeout' => 500,
+        ], $field->getPickerOptions());
     }
 
     public function testWithCustomOptions(): void
     {
-        $field = ColorPicker::make('color')
+        $field = $this->makeComponent()
             ->popupPosition(PopupPosition::LEFT())
             ->alpha(false)
             ->editorFormat(EditorFormat::RGB())
@@ -35,52 +40,61 @@ final class ColorPickerTest extends TestCase
             ->cancelButton(true);
 
         self::assertEquals([
-            'popup' => PopupPosition::LEFT,
+            'editorFormat' => 'rgb',
+            'popupPosition' => 'left',
             'alpha' => false,
-            'editorFormat' => EditorFormat::RGB,
-            'cancelButton' => true,
             'layout' => 'some-layout',
-        ], $field->jsonSerialize());
+            'cancelButton' => true,
+            'statePath' => 'color',
+            'template' => null,
+            'debounceTimeout' => 500,
+        ], $field->getPickerOptions());
     }
 
     public function testPopupDisabled(): void
     {
-        $field = ColorPicker::make('color')
+        $field = $this->makeComponent()
             ->disablePopup();
 
         self::assertEquals([
-            'popup' => null,
+            'editorFormat' => 'hex',
+            'popupPosition' => null,
             'alpha' => true,
-            'editorFormat' => EditorFormat::HEX,
-            'cancelButton' => false,
             'layout' => 'default',
-        ], $field->jsonSerialize());
+            'cancelButton' => false,
+            'statePath' => 'color',
+            'template' => null,
+            'debounceTimeout' => 500,
+        ], $field->getPickerOptions());
+
+        self::assertFalse($field->isPopupEnabled());
     }
 
-    /**
-     * @dataProvider outputValueProvider
-     */
-    public function testOutputValue(EditorFormat $format, bool $alpha, string $expectedOutput): void
+    public function testWithCustomTemplate(): void
     {
-        $field = ColorPicker::make('color')
-            ->editorFormat($format)
-            ->alpha($alpha);
+        $template = '<div>This is a test template</div>';
 
-        self::assertSame($expectedOutput, $field->getOutputValue());
+        $field = $this->makeComponent()
+            ->template($template);
+
+        self::assertEquals([
+            'editorFormat' => 'hex',
+            'popupPosition' => 'right',
+            'alpha' => true,
+            'layout' => 'default',
+            'cancelButton' => false,
+            'statePath' => 'color',
+            'template' => '<div>This is a test template</div>',
+            'debounceTimeout' => 500,
+        ], $field->getPickerOptions());
     }
 
-    /**
-     * @return mixed[][]
-     */
-    public function outputValueProvider(): array
+    private function makeComponent(): ColorPicker
     {
-        return [
-            [ EditorFormat::HEX(), true, OutputFormat::HEXA ],
-            [ EditorFormat::HEX(), false, OutputFormat::HEX ],
-            [ EditorFormat::RGB(), true, OutputFormat::RGBA ],
-            [ EditorFormat::RGB(), false, OutputFormat::RGB ],
-            [ EditorFormat::HSL(), true, OutputFormat::HSLA ],
-            [ EditorFormat::HSL(), false, OutputFormat::HSL ],
-        ];
+        return tap(new ColorPicker('color'), function (ColorPicker $field): void {
+            $field
+                ->container(ComponentContainer::make(Livewire::make()))
+                ->initialize();
+        });
     }
 }
