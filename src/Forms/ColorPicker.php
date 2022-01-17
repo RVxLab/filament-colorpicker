@@ -45,9 +45,9 @@ class ColorPicker extends Field
         });
     }
 
-    public function editorFormat(EditorFormat $editorFormat): self
+    public function editorFormat(EditorFormat | string $editorFormat): self
     {
-        $this->editorFormat = $editorFormat;
+        $this->editorFormat = new EditorFormat($editorFormat);
 
         return $this;
     }
@@ -57,9 +57,9 @@ class ColorPicker extends Field
         return $this->editorFormat;
     }
 
-    public function popupPosition(PopupPosition $popupPosition): self
+    public function popupPosition(PopupPosition | string $popupPosition): self
     {
-        $this->popupPosition = $popupPosition;
+        $this->popupPosition = new PopupPosition($popupPosition);
 
         return $this;
     }
