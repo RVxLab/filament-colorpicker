@@ -19,10 +19,10 @@ You can install the package via composer:
 composer require rvxlab/filament-colorpicker
 ```
 
-Then publish the assets:
+Optionally you can publish the views:
 
 ```bash
-php artisan vendor:publish --provider="RVxLab\FilamentColorPicker\FilamentColorPickerServiceProvider"
+php artisan vendor:publish --tag=filament-colorpicker-views
 ```
 
 ## Usage
@@ -38,6 +38,8 @@ public static function form(Form $form): Form
         ]);
 }
 ```
+
+All options below are analogous to the ones in the [Vanilla Picker documentation](https://vanilla-picker.js.org/gen/Picker.html#setOptions__anchor).
 
 ### Editor format
 
@@ -56,6 +58,8 @@ public static function form(Form $form): Form
 }
 ```
 
+You may also pass the string values of the `EditorFormat` enum.
+
 ### Popup placement
 
 ***Default:*** `PopupPosition::RIGHT()`
@@ -72,6 +76,8 @@ public static function form(Form $form): Form
         ]);
 }
 ```
+
+You may also pass the string values of the `PopupPosition` enum.
 
 You can also disable the popup entirely in which the popup just becomes part of the element itself:
 
@@ -107,9 +113,89 @@ An important thing to note is that the alpha setting also changes the validation
 
 Having the alpha channel enabled will validate the output as an 8-digit hex string, disabling will validate it as a 6-digit hex string.
 
+### Layout
+
+***Default: "default"***
+
+The layout can be changed by using `layout`:
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+                ->layout('my-layout'),
+        ]);
+}
+```
+
+### Cancel button
+
+***Default: false***
+
+The cancel button can be enabled or disabled by using `cancelButton`:
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+                ->cancelButton(true),
+        ]);
+}
+```
+
+### Template
+
+***Default: null***
+
+The default template can be found in `views/vendor/filament-colorpicker/template.blade.php` after you publish the views.
+
+To make changes, simply change this template and then pass a `View` object to the `template` method:
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+                ->template(view('filament-colorpicker::template')),
+        ]);
+}
+```
+
+You can also pass an HTML string directly, which then gets fed to the options as is.
+
+### Debounce timeout
+
+***Default: 500***
+
+The debounce timeout in milliseconds, this option is only applicable when the popup has been disabled.
+
+When the popup is enabled this option does nothing.
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+                ->debounceTimeout(1000),
+        ]);
+}
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Upgrading to 1.x
+
+The only breaking change is that this package now relies on `filament/filament:^2.0`, other than that there are no breaking changes.
+
+If you published the JavaScript file in the past you can delete it, the file is now loaded through Filament directly
 
 ## Contributing
 
