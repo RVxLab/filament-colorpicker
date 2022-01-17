@@ -46,7 +46,7 @@ class ColorPicker extends Field
         });
     }
 
-    public function editorFormat(EditorFormat | string $editorFormat): self
+    public function editorFormat(EditorFormat|string $editorFormat): self
     {
         $this->editorFormat = new EditorFormat($editorFormat);
 
@@ -58,7 +58,7 @@ class ColorPicker extends Field
         return $this->editorFormat;
     }
 
-    public function popupPosition(PopupPosition | string $popupPosition): self
+    public function popupPosition(PopupPosition|string $popupPosition): self
     {
         $this->popupPosition = new PopupPosition($popupPosition);
 
@@ -131,7 +131,7 @@ class ColorPicker extends Field
             return null;
         }
 
-        return (string) view($this->colorPickerTemplate);
+        return (string)view($this->colorPickerTemplate);
     }
 
     public function debounceTimeout(int $timeout): self
@@ -144,6 +144,20 @@ class ColorPicker extends Field
     public function getDebounceTimeout(): int
     {
         return $this->debounceTimeout;
+    }
+
+    public function getPickerOptions(): array
+    {
+        return [
+            'editorFormat' => $this->getEditorFormat()->getValue(),
+            'popupPosition' => $this->getPopupPosition()?->getValue(),
+            'alpha' => $this->getAlpha(),
+            'layout' => $this->getLayout(),
+            'cancelButton' => $this->getCancelButton(),
+            'statePath' => $this->getStatePath(),
+            'template' => $this->getTemplate(),
+            'debounceTimeout' => $this->getDebounceTimeout(),
+        ];
     }
 
     protected function determineColorPattern(): string

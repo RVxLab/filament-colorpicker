@@ -61,3 +61,4 @@ window.FilamentColorPicker = {
     make,
 };
 
+window.dispatchEvent(new CustomEvent('filament-color-picker:init'));

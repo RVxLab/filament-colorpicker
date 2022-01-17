@@ -13,19 +13,10 @@
             color: $wire.entangle('{{ $getStatePath() }}'),
             picker: undefined,
             init() {
-                $nextTick(() => {
+                window.addEventListener('filament-color-picker:init', () => {
                     this.picker = window.FilamentColorPicker.make($wire, {
                         parent: document.getElementById('{{ $getId() }}_picker'),
-                        ...{{ Js::from([
-                            'editorFormat' => $getEditorFormat()->getValue(),
-                            'popupPosition' => $getPopupPosition()?->getValue(),
-                            'alpha' => $getAlpha(),
-                            'layout' => $getLayout(),
-                            'cancelButton' => $getCancelButton(),
-                            'statePath' => $getStatePath(),
-                            'template' => $getTemplate(),
-                            'debounceTimeout' => $getDebounceTimeout(),
-                        ]) }},
+                        ...{{ Js::from($getPickerOptions()) }},
                     });
                 });
             },
