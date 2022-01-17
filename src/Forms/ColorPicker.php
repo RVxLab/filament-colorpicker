@@ -26,6 +26,8 @@ class ColorPicker extends Field
 
     protected bool $cancelButton = false;
 
+    protected ?string $colorPickerTemplate = null;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -108,6 +110,22 @@ class ColorPicker extends Field
     public function getCancelButton(): bool
     {
         return $this->cancelButton;
+    }
+
+    public function template(string $viewName): self
+    {
+        $this->colorPickerTemplate = $viewName;
+
+        return $this;
+    }
+
+    public function getTemplate(): ?string
+    {
+        if (!$this->colorPickerTemplate) {
+            return null;
+        }
+
+        return (string) view($this->colorPickerTemplate);
     }
 
     protected function determineColorPattern(): string

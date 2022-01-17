@@ -10,7 +10,7 @@ const formatters = {
 };
 
 function make($wire, options) {
-    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath } = options;
+    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template } = options;
 
     const initialColor = $wire.get(statePath);
 
@@ -29,6 +29,7 @@ function make($wire, options) {
         alpha,
         layout,
         cancelButton,
+        template,
         color: initialColor,
         onChange: color => {
             colorPickerInput.value = formatters[formatterKey](color);

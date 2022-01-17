@@ -23,6 +23,7 @@
                             'layout' => $getLayout(),
                             'cancelButton' => $getCancelButton(),
                             'statePath' => $getStatePath(),
+                            'template' => $getTemplate(),
                         ]) }},
                     });
                 });

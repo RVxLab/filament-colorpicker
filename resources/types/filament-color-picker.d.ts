@@ -9,6 +9,7 @@ declare global {
         layout: string;
         cancelButton: boolean;
         statePath: string;
+        template: string | null;
     };
 
     type ColorPicker = {
