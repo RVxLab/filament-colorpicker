@@ -16,4 +16,4 @@ services:
       - '~/.composer:/home/app/.composer'
     tty: true
     extra_hosts:
-      - "${RAY_HOST}:host-gateway"
+      - "${RAY_HOST-127.0.0.1}:host-gateway"

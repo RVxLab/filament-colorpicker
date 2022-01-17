@@ -1,37 +1,38 @@
-<x-forms::field-group
-    :column-span="$formComponent->getColumnSpan()"
-    :error-key="$formComponent->getName()"
-    :for="$formComponent->getId()"
-    :help-message="$formComponent->getHelpMessage()"
-    :hint="$formComponent->getHint()"
-    :label="$formComponent->getLabel()"
-    :required="$formComponent->isRequired()"
+<x-forms::field-wrapper
+    :id="$getId()"
+    :label="$getLabel()"
+    :label-sr-only="$isLabelHidden()"
+    :helper-text="$getHelperText()"
+    :hint="$getHint()"
+    :required="$isRequired()"
+    :state-path="$getStatePath()"
 >
     <div
+        wire:ignore
         x-data="{
-            value: @entangle($formComponent->getName()){{ Str::of($formComponent->getBindingAttribute())->after('wire:model') }},
-            picker: null,
+            color: $wire.entangle('{{ $getStatePath() }}'),
+            picker: undefined,
+            init() {
+                window.addEventListener('filament-color-picker:init', () => {
+                    this.picker = window.FilamentColorPicker.make($wire, {
+                        parent: document.getElementById('filament-color-picker'),
+                        ...{{ Js::from($getPickerOptions()) }},
+                    });
+                });
+            },
         }"
-        x-init="picker = new FilamentColorPicker.Picker({
-            ...JSON.parse('{{ json_encode($formComponent) }}'),
-            parent: document.querySelector('#{{ $formComponent->getId() }}'),
-            color: value,
-            onChange: function (color) {
-                value = {{ $formComponent->getOutputValue() }};
-            }
-        })"
-        id="{{ $formComponent->getId() }}"
     >
-        <input
-            {!! $formComponent->isDisabled() ? 'disabled' : null !!}
-            {!! $formComponent->getId() ? "id=\"{$formComponent->getId()}\"" : null !!}
-            {!! $formComponent->isRequired() ? 'required' : null !!}
-            x-model="value"
-            type="text"
-            class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{ $errors->has($formComponent->getName()) ? 'border-danger-600 motion-safe:animate-shake' : 'border-gray-300' }}"
-            {!! !$formComponent->isPopupEnabled() ? 'style="margin-bottom: 0.75rem;"' : '' !!}
-            {!! !$formComponent->isPopupEnabled() ? 'readonly' : '' !!}
-            {!! Filament\format_attributes($formComponent->getExtraAttributes()) !!}
-        />
+        <div
+            id="filament-color-picker"
+        >
+            <input
+                type="text"
+                x-model="color"
+                class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                style="{{ $isPopupEnabled() ? '' : 'margin-bottom: 0.75rem' }}"
+                readonly="{{ $isPopupEnabled() ? '' : 'readonly' }}"
+                data-color-picker-field
+            />
+        </div>
     </div>
-</x-forms::field-group>
+</x-forms::field-wrapper>
