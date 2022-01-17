@@ -6,6 +6,7 @@ namespace RVxLab\FilamentColorPicker\Forms;
 
 use Filament\Forms\Components\Concerns\HasExtraAlpineAttributes;
 use Filament\Forms\Components\Field;
+use Illuminate\Validation\Rule;
 use RVxLab\FilamentColorPicker\Enum\ColorPattern;
 use RVxLab\FilamentColorPicker\Enum\EditorFormat;
 use RVxLab\FilamentColorPicker\Enum\PopupPosition;
@@ -37,6 +38,10 @@ class ColorPicker extends Field
 
         $this->afterStateHydrated(function (self $component, ?string $state): void {
             $component->state($state);
+        });
+
+        $this->rule(function (ColorPicker $component) {
+            return "regex:{$component->determineColorPattern()}";
         });
     }
 
