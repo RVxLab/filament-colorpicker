@@ -19,16 +19,15 @@
     "require": {
         "php": "^8.0",
         "filament/filament": "^2.0",
-        "illuminate/contracts": "^8.37",
+        "illuminate/contracts": "^8.37|^9.0",
         "myclabs/php-enum": "^1.8",
         "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
         "brianium/paratest": "^6.2",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "nunomaduro/collision": "^5.3",
         "nunomaduro/larastan": "^1.0",
-        "orchestra/testbench": "^6.15",
+        "orchestra/testbench": "^6.15|^7.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.3",
