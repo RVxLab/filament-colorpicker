@@ -2,6 +2,10 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## 1.1.0 - 2022-01-26
+
+- Add Laravel 9 support
+
 ## 1.0.0 - 2022-01-18
 
 This release marks the first stable release of this package and targets Filament 2.x.
