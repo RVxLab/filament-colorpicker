@@ -8,5 +8,5 @@ use Filament\Tables\Columns\Column;
 
 class ColorSwatch extends Column
 {
-    protected string $view = 'filament-colorpicker::colorSwatch';
+    protected string $view = 'filament-colorpicker::color-swatch';
 }
