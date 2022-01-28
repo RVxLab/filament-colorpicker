@@ -187,9 +187,9 @@ public static function form(Form $form): Form
 }
 ```
 
-### Color Swatch Column
+## Color swatch
 
-A Simple swatch column 
+To display a swatch on the table you can add the following column:
 
 ```php
 public static function table(Table $table): Table
@@ -197,6 +197,61 @@ public static function table(Table $table): Table
     return $table
         ->columns([
             \RVxLab\FilamentColorPicker\Columns\ColorSwatch::make('color'),
+        ]);
+}
+```
+
+### Copying
+
+*Note: this makes use of the [clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard).*
+
+You can call the `copyable` method on the column:
+
+```php
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            \RVxLab\FilamentColorPicker\Columns\ColorSwatch::make('color')
+                ->copyable(),
+        ]);
+}
+```
+
+When set, clicking on the swatch will cause the current color to be copied to the clipboard.
+
+### Set the copy message
+
+***Default: "Copied!"***
+
+You can change the copy message by using the `copyMessage` method:
+
+```php
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            \RVxLab\FilamentColorPicker\Columns\ColorSwatch::make('color')
+                ->copyable()
+                ->copyMessage('Color copied to clipboard!'),
+        ]);
+}
+```
+
+### Change the message timeout
+
+***Default: 2000***
+
+To change the length of time the message appears you can use the `copyMessageShowTimeMs` method:
+
+```php
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            \RVxLab\FilamentColorPicker\Columns\ColorSwatch::make('color')
+                ->copyable()
+                ->copyMessageShowTimeMs(500),
         ]);
 }
 ```
