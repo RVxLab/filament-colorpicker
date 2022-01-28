@@ -2,6 +2,12 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## 1.2.0 - 2022-01-28
+
+- Add a swatch for use on tables ([#8](https://github.com/RVxLab/filament-colorpicker/pull/8))
+
+Thanks to [@morganchorlton3](https://github.com/morganchorlton3) for adding this feature!
+
 ## 1.1.0 - 2022-01-26
 
 - Add Laravel 9 support
