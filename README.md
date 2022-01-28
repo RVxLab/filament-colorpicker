@@ -187,6 +187,20 @@ public static function form(Form $form): Form
 }
 ```
 
+### Color Swatch Column
+
+A Simple swatch column 
+
+```php
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            \RVxLab\FilamentColorPicker\Columns\ColorSwatch::make('color'),
+        ]);
+}
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
