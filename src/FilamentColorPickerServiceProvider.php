@@ -22,6 +22,7 @@ final class FilamentColorPickerServiceProvider extends PluginServiceProvider
     {
         $package
             ->name('filament-colorpicker')
-            ->hasViews();
+            ->hasViews()
+            ->hasTranslations();
     }
 }

@@ -12,7 +12,7 @@ class ColorSwatch extends Column
 
     protected bool $copyable = false;
 
-    protected string $copyMessage = 'Copied!';
+    protected ?string $copyMessage = null;
 
     protected int $copyMessageShowTimeMs = 2000;
 
@@ -32,7 +32,7 @@ class ColorSwatch extends Column
 
     public function getCopyMessage(): string
     {
-        return $this->copyMessage;
+        return $this->copyMessage ?? trans('filament-colorpicker::swatch.copied_message');
     }
 
     public function copyMessageShowTimeMs(int $timeInMs): self

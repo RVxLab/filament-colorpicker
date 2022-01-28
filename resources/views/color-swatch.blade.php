@@ -33,7 +33,7 @@ $tag = $copyable ? 'button' : 'div';
     >
     </span>
 @if ($copyable)
-        <span x-cloak x-show="showCopied" class="absolute pointer-events-none top-0" style="left: 2rem">
+        <span x-cloak x-transition x-show="showCopied" class="z-20 absolute pointer-events-none top-0" style="left: 2rem">
             {{ $getCopyMessage() }}
         </span>
     </button>
