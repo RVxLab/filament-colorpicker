@@ -27,14 +27,14 @@ php artisan vendor:publish --tag=filament-colorpicker-views
 
 ## Usage
 
-Reference `RVxLab\FilamentColorPicker\ColorPicker` in the `forms` method of a resource and you're good to go! 
+Reference `RVxLab\FilamentColorPicker\Forms\ColorPicker` in the `forms` method of a resource and you're good to go! 
 
 ```php
 public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color'),
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color'),
         ]);
 }
 ```
@@ -52,8 +52,8 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
-                ->editorFormat(\RVxLab\FilamentColorPicker\EditorFormat::HSL()),
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
+                ->editorFormat(\RVxLab\FilamentColorPicker\Enum\EditorFormat::HSL()),
         ]);
 }
 ```
@@ -71,8 +71,8 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
-                ->popupPosition(\RVxLab\FilamentColorPicker\PopupPosition::BOTTOM()),
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
+                ->popupPosition(\RVxLab\FilamentColorPicker\Enum\PopupPosition::BOTTOM()),
         ]);
 }
 ```
@@ -86,7 +86,7 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
                 ->disablePopup(),
         ]);
 }
@@ -103,7 +103,7 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
                 ->alpha(false),
         ]);
 }
@@ -124,7 +124,7 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
                 ->layout('my-layout'),
         ]);
 }
@@ -141,7 +141,7 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
                 ->cancelButton(true),
         ]);
 }
@@ -160,7 +160,7 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
                 ->template(view('filament-colorpicker::template')),
         ]);
 }
@@ -181,7 +181,7 @@ public static function form(Form $form): Form
 {
     return $form
         ->schema([
-            \RVxLab\FilamentColorPicker\ColorPicker::make('color')
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
                 ->debounceTimeout(1000),
         ]);
 }
