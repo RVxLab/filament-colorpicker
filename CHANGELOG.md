@@ -2,6 +2,8 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## Unreleased
+
 ## 1.2.0 - 2022-01-28
 
 - Add a swatch for use on tables ([#8](https://github.com/RVxLab/filament-colorpicker/pull/8))
