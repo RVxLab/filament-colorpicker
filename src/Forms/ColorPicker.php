@@ -154,9 +154,12 @@ class ColorPicker extends Field
      */
     public function getPickerOptions(): array
     {
+        /** @var string|null $popupPosition */
+        $popupPosition = $this->getPopupPosition()?->getValue();
+
         return [
-            'editorFormat' => $this->getEditorFormat()->getValue(),
-            'popupPosition' => $this->getPopupPosition()?->getValue(),
+            'editorFormat' => (string) $this->getEditorFormat(),
+            'popupPosition' => $popupPosition,
             'alpha' => $this->getAlpha(),
             'layout' => $this->getLayout(),
             'cancelButton' => $this->getCancelButton(),
