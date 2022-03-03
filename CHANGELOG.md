@@ -2,6 +2,12 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.2.1 - Fix dependencies and use of Js class - 2022-03-03
+
+### Fixed
+
+- `illuminate/contract` now correctly states `^8.70` for the `Js` class and use the full FQN to prevent issues with aliases (#10)
+
 ## Unreleased
 
 ## 1.2.0 - 2022-01-28
