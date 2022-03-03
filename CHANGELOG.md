@@ -8,8 +8,6 @@ All notable changes to `filament-colorpicker` will be documented in this file.
 
 - `illuminate/contract` now correctly states `^8.70` for the `Js` class and use the full FQN to prevent issues with aliases (#10)
 
-## Unreleased
-
 ## 1.2.0 - 2022-01-28
 
 - Add a swatch for use on tables ([#8](https://github.com/RVxLab/filament-colorpicker/pull/8))
