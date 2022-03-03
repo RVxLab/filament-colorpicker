@@ -16,7 +16,7 @@
                 window.addEventListener('filament-color-picker:init', () => {
                     this.picker = window.FilamentColorPicker.make($wire, {
                         parent: document.getElementById('filament-color-picker'),
-                        ...{{ Js::from($getPickerOptions()) }},
+                        ...{{ \Illuminate\Support\Js::from($getPickerOptions()) }},
                     });
                 });
             },
