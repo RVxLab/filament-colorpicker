@@ -113,6 +113,23 @@ An important thing to note is that the alpha setting also changes the validation
 
 Having the alpha channel enabled will validate the output as an 8-digit hex string, disabling will validate it as a 6-digit hex string.
 
+### Preview
+
+***Default: false***
+
+The color preview can be enabled or disabled by using `preview`:
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
+                ->preview(),
+        ]);
+}
+```
+
 ### Layout
 
 ***Default: "default"***
