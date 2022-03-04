@@ -16,7 +16,7 @@
                 window.addEventListener('filament-color-picker:init', () => {
                     this.picker = window.FilamentColorPicker.make($wire, {
                         parent: document.getElementById('filament-color-picker'),
-                        ...{{ \Illuminate\Support\Js::from($getPickerOptions()) }},
+                        ...@js($getPickerOptions()),
                     });
                 });
             },
@@ -24,11 +24,21 @@
     >
         <div
             id="filament-color-picker"
+            class="flex mt-1 rounded-md shadow-sm"
         >
+            @if ($getPreview())
+                <span class="items-center bg-white border border-r-0 border-gray-300 w-11 h-10inline-flex rounded-l-md sm:text-sm" :style="{ background: color }"></span>
+            @endif
             <input
                 type="text"
                 x-model="color"
-                class="block w-full placeholder-gray-400 focus:placeholder-gray-500 placeholder-opacity-100 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                {{
+                    $attributes->class([
+                        'block w-full transition duration-75 border-gray-300 focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 disabled:opacity-70',
+                        'rounded-none rounded-r-md border-l-0' => $getPreview(),
+                        'rounded-md' => ! $getPreview(),
+                    ])
+                }}
                 style="{{ $isPopupEnabled() ? '' : 'margin-bottom: 0.75rem' }}"
                 readonly="{{ $isPopupEnabled() ? '' : 'readonly' }}"
                 data-color-picker-field
