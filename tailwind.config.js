@@ -3,6 +3,9 @@ module.exports = {
     content: [
         './resources/views/**/*.blade.php',
     ],
+    safelist: [
+        'picker_wrapper',
+    ],
     theme: {
         extend: {},
     },

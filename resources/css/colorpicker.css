@@ -3,3 +3,8 @@
 .color-picker-preview {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUAQMAAAC3R49OAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAZQTFRFqamp////1p50kwAAABRJREFUeJxjYLD/wEAM/n+AgRgMACSCHU0RydcxAAAAAElFTkSuQmCC);
 }
+
+.color-picker .picker_wrapper::before {
+    flex-basis: 100%;
+    height: 0;
+}
