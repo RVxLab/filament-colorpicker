@@ -27,6 +27,7 @@ final class ColorPickerTest extends TestCase
             'statePath' => 'color',
             'template' => null,
             'debounceTimeout' => 500,
+            'preview' => false,
         ], $field->getPickerOptions());
     }
 
@@ -48,6 +49,7 @@ final class ColorPickerTest extends TestCase
             'statePath' => 'color',
             'template' => null,
             'debounceTimeout' => 500,
+            'preview' => false,
         ], $field->getPickerOptions());
     }
 
@@ -65,6 +67,7 @@ final class ColorPickerTest extends TestCase
             'statePath' => 'color',
             'template' => null,
             'debounceTimeout' => 500,
+            'preview' => false,
         ], $field->getPickerOptions());
 
         self::assertFalse($field->isPopupEnabled());
@@ -86,9 +89,27 @@ final class ColorPickerTest extends TestCase
             'statePath' => 'color',
             'template' => '<div>This is a test template</div>',
             'debounceTimeout' => 500,
+            'preview' => false,
         ], $field->getPickerOptions());
     }
 
+    public function testWithPreview(): void
+    {
+        $field = $this->makeComponent()
+            ->preview();
+
+        self::assertEquals([
+            'editorFormat' => 'hex',
+            'popupPosition' => 'right',
+            'alpha' => true,
+            'layout' => 'default',
+            'cancelButton' => false,
+            'statePath' => 'color',
+            'template' => null,
+            'debounceTimeout' => 500,
+            'preview' => true,
+        ], $field->getPickerOptions());
+    }
     private function makeComponent(): ColorPicker
     {
         return tap(new ColorPicker('color'), function (ColorPicker $field): void {

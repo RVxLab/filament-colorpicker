@@ -164,7 +164,7 @@ class ColorPicker extends Field
     }
 
     /**
-     * @return array{editorFormat: string, popupPosition: ?string, alpha: bool, layout: string, cancelButton: bool, statePath: string, template: ?string, debounceTimeout: int}
+     * @return array{editorFormat: string, popupPosition: ?string, alpha: bool, layout: string, cancelButton: bool, statePath: string, template: ?string, debounceTimeout: int, preview: bool}
      */
     public function getPickerOptions(): array
     {
