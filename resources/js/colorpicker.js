@@ -1,3 +1,5 @@
+import '../css/colorpicker.css';
+
 import Picker from 'vanilla-picker';
 import { debounce } from 'lodash';
 
@@ -11,7 +13,7 @@ const formatters = {
 };
 
 function make($wire, options) {
-    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template, debounceTimeout } = options;
+    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template, debounceTimeout, preview } = options;
 
     const initialColor = $wire.get(statePath);
 
@@ -31,6 +33,18 @@ function make($wire, options) {
         updateLivewireProperty = debounce(updateLivewireProperty, debounceTimeout);
     }
 
+    let updatePreview = function (color) {
+        // noop
+    };
+
+    let previewElement = parent.querySelector('[data-preview]');
+
+    if (preview && previewElement) {
+        updatePreview = function (color) {
+            previewElement.style.background = color;
+        };
+    }
+
     return new Picker({
         parent,
         editorFormat,
@@ -43,6 +57,8 @@ function make($wire, options) {
         onChange: color => {
             let newColor = formatters[formatterKey](color);
             colorPickerInput.value = newColor;
+
+            updatePreview(newColor);
 
             if (null === popupPosition) {
                 updateLivewireProperty(newColor);

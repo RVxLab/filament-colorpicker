@@ -180,6 +180,7 @@ class ColorPicker extends Field
             'statePath' => $this->getStatePath(),
             'template' => $this->getTemplate(),
             'debounceTimeout' => $this->getDebounceTimeout(),
+            'preview' => $this->getPreview(),
         ];
     }
 

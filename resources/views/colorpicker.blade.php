@@ -24,19 +24,18 @@
     >
         <div
             id="filament-color-picker"
-            class="flex mt-1 rounded-md shadow-sm"
+            class="flex mt-1 rounded-lg border border-gray-300 shadow-sm"
         >
-            @if ($getPreview())
-                <span class="items-center bg-white border border-r-0 border-gray-300 w-11 h-10inline-flex rounded-l-md sm:text-sm" :style="{ background: color }"></span>
-            @endif
+            @includeWhen($getPreview(), 'filament-colorpicker::preview')
             <input
                 type="text"
                 x-model="color"
                 {{
                     $attributes->class([
-                        'block w-full transition duration-75 border-gray-300 focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 disabled:opacity-70',
-                        'rounded-none rounded-r-md border-l-0' => $getPreview(),
-                        'rounded-md' => ! $getPreview(),
+                        'color-picker-input',
+                        'block w-full transition duration-75 border-0 focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 disabled:opacity-70',
+                        '!rvx-rounded-r-lg' => $getPreview(),
+                        'rounded-lg' => !$getPreview(),
                     ])
                 }}
                 style="{{ $isPopupEnabled() ? '' : 'margin-bottom: 0.75rem' }}"

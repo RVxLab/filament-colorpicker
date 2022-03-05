@@ -18,6 +18,10 @@ final class FilamentColorPickerServiceProvider extends PluginServiceProvider
         'rvxlab-filament-colorpicker' => __DIR__ . '/../resources/dist/filament-colorpicker.js',
     ];
 
+    protected array $styles = [
+        'rvxlab-filament-colorpicker' => __DIR__ . '/../resources/dist/filament-colorpicker.css',
+    ];
+
     public function configurePackage(Package $package): void
     {
         $package

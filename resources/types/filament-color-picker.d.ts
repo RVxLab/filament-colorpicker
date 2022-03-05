@@ -11,6 +11,7 @@ declare global {
         statePath: string;
         template: string | null;
         debounceTimeout: number;
+        preview: boolean;
     };
 
     type ColorPicker = {
