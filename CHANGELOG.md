@@ -6,7 +6,7 @@ All notable changes to `filament-colorpicker` will be documented in this file.
 
 ### Added
 
-- Added a preview option by @saade (#11)
+- Added a preview option by [@saade](https://github.com/saade) ([#11](https://github.com/RVxLab/filament-colorpicker/pull/11))
 
 **Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.2.1...1.3.0
 
