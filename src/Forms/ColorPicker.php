@@ -20,6 +20,8 @@ class ColorPicker extends Field
 
     protected bool $alpha = true;
 
+    protected bool $preview = false;
+
     protected string $layout = 'default';
 
     protected bool $cancelButton = false;
@@ -95,6 +97,18 @@ class ColorPicker extends Field
     public function getAlpha(): bool
     {
         return $this->alpha;
+    }
+
+    public function preview(bool $showPreview = true): self
+    {
+        $this->preview = $showPreview;
+
+        return $this;
+    }
+
+    public function getPreview(): bool
+    {
+        return $this->preview;
     }
 
     public function layout(string $layout): self
