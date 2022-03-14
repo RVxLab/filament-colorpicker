@@ -19,6 +19,8 @@
                         ...@js($getPickerOptions()),
                     });
                 });
+
+                window.dispatchEvent(new CustomEvent('filament-color-picker:init'));
             },
         }"
     >
