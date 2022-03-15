@@ -2,6 +2,14 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.3.1 - 2022-03-15
+
+### Fixed
+
+- fix: input not being initialized on simple resource modal by @saade in https://github.com/RVxLab/filament-colorpicker/pull/12
+
+**Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.3.0...1.3.1
+
 ## 1.3.0 - 2022-03-05
 
 ### Added
