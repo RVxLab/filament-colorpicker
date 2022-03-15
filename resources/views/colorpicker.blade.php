@@ -13,14 +13,12 @@
             color: $wire.entangle('{{ $getStatePath() }}'),
             picker: undefined,
             init() {
-                window.addEventListener('filament-color-picker:init', () => {
+                $nextTick(() => {
                     this.picker = window.FilamentColorPicker.make($wire, {
                         parent: document.getElementById('filament-color-picker'),
                         ...@js($getPickerOptions()),
                     });
                 });
-
-                window.dispatchEvent(new CustomEvent('filament-color-picker:init'));
             },
         }"
     >
