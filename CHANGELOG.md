@@ -2,6 +2,14 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.3.2 - Allow multiple ColorPicker fields - 2022-03-18
+
+### Fixes
+
+- Fixed the inability to have multiple ColorPicker fields in the same form
+
+**Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.3.1...1.3.2
+
 ## v1.3.1 - 2022-03-15
 
 ### Fixed
