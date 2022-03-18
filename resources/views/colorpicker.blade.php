@@ -15,7 +15,7 @@
             init() {
                 $nextTick(() => {
                     this.picker = window.FilamentColorPicker.make($wire, {
-                        parent: document.getElementById('filament-color-picker'),
+                        parent: $refs.colorPicker,
                         ...@js($getPickerOptions()),
                     });
                 });
@@ -23,7 +23,7 @@
         }"
     >
         <div
-            id="filament-color-picker"
+            x-ref="colorPicker"
             class="color-picker flex flex-wrap mt-1 shadow-sm"
         >
             @includeWhen($getPreview(), 'filament-colorpicker::preview')
