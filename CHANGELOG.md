@@ -2,6 +2,19 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.3.3 - Dark Mode and more reliable script loading - 2022-03-28
+
+### What's Changed
+
+- Update colorpicker.blade.php by @invaders-xx in https://github.com/RVxLab/filament-colorpicker/pull/13
+- Improve script loading by using a promise
+
+### New Contributors
+
+- @invaders-xx made their first contribution in https://github.com/RVxLab/filament-colorpicker/pull/13
+
+**Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.3.2...1.3.3
+
 ## v1.3.2 - Allow multiple ColorPicker fields - 2022-03-18
 
 ### Fixes
