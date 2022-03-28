@@ -12,8 +12,26 @@
         x-data="{
             color: $wire.entangle('{{ $getStatePath() }}'),
             picker: undefined,
+            get scriptLoaded() {
+                return Promise.race([
+                    new Promise(resolve => {
+                        window.addEventListener('filament-color-picker:init', resolve, {
+                            once: true,
+                        });
+                    }),
+                    new Promise(resolve => {
+                        const intervalId = window.setInterval(() => {
+                            if (window.FilamentColorPicker) {
+                                window.clearInterval(intervalId);
+
+                                resolve();
+                            }
+                        }, 250);
+                    }),
+                ]);
+            },
             init() {
-                $nextTick(() => {
+                this.scriptLoaded.then(() => {
                     this.picker = window.FilamentColorPicker.make($wire, {
                         parent: $refs.colorPicker,
                         ...@js($getPickerOptions()),
