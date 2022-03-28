@@ -35,6 +35,10 @@
                     $attributes->class([
                         'color-picker-input',
                         'block transition duration-75 border border-gray-300 focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 disabled:opacity-70',
+                        'dark:bg-gray-700 dark:text-white' => config('forms.dark_mode'),
+                        'border-gray-300' => ! $errors->has($getStatePath()),
+                        'dark:border-gray-600' => (! $errors->has($getStatePath())) && config('forms.dark_mode'),
+                        'border-danger-600 ring-danger-600' => $errors->has($getStatePath()),
                         '!rvx-rounded-r-lg flex-1 border-l-0' => $getPreview(),
                         'rounded-lg w-full' => !$getPreview(),
                     ])
