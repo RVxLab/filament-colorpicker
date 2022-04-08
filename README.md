@@ -1,6 +1,6 @@
 # Filament Color Picker
 
-![Filament Color Picker](./banner.png)
+![Filament Color Picker](./art/banner.png)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rvxlab/filament-colorpicker.svg?style=flat-square)](https://packagist.org/packages/rvxlab/filament-colorpicker)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/rvxlab/filament-colorpicker/run-tests?label=tests&style=flat-square)](https://github.com/rvxlab/filament-colorpicker/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -26,6 +26,8 @@ php artisan vendor:publish --tag=filament-colorpicker-views
 ```
 
 ## Usage
+
+![The color pickers in action](./art/color-pickers.png)
 
 Reference `RVxLab\FilamentColorPicker\Forms\ColorPicker` in the `forms` method of a resource and you're good to go! 
 
@@ -228,6 +230,8 @@ Because Vanilla Picker does not handle null values properly the default initial 
 This goes away when the picker is updated or the form is saved.
 
 ## Color swatch
+
+![The color pickers in action](./art/swatches.png)
 
 To display a swatch on the table you can add the following column:
 
