@@ -1,3 +1,7 @@
+@php
+    $popupEnabled = $isPopupEnabled();
+@endphp
+
 <x-forms::field-wrapper
     :id="$getId()"
     :label="$getLabel()"
@@ -42,7 +46,10 @@
     >
         <div
             x-ref="colorPicker"
-            class="color-picker flex flex-wrap mt-1 shadow-sm"
+            @class([
+                'color-picker flex flex-wrap mt-1',
+                'shadow-sm' => $popupEnabled,
+            ])
         >
             @includeWhen($getPreview(), 'filament-colorpicker::preview')
 
@@ -61,10 +68,12 @@
                         'rounded-lg w-full' => !$getPreview(),
                     ])
                 }}
-                style="{{ $isPopupEnabled() ? '' : 'margin-bottom: 0.75rem' }}"
-                readonly="{{ $isPopupEnabled() ? '' : 'readonly' }}"
+                style="{{ $popupEnabled ? '' : 'margin-bottom: 0.75rem' }}"
+                readonly="{{ $popupEnabled ? '' : 'readonly' }}"
                 data-color-picker-field
             />
+
+            @includeUnless($popupEnabled, 'filament-colorpicker::break')
         </div>
     </div>
 </x-forms::field-wrapper>
