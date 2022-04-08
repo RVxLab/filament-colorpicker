@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "lib": [
+            "DOM",
+            "ESNext"
+        ],
+        "module": "ESNext",
+        "rootDir": "resources/js",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./resources/types"
+        ],
+        "moduleResolution": "node",
+    },
+    "include": [
+        "resources/js",
+        "resources/types"
+    ],
+    "exclude": [
+        "node_modules",
+        "rollup.config.js"
+    ]
+}

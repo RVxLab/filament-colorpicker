@@ -11,11 +11,15 @@
     "devDependencies": {
         "@rollup/plugin-commonjs": "^19.0.0",
         "@rollup/plugin-node-resolve": "^13.0.0",
+        "@rollup/plugin-typescript": "^8.3.1",
+        "@types/alpinejs": "^3.7.0",
         "@types/lodash": "^4.14.178",
         "autoprefixer": "^10.4.2",
         "rollup": "^2.51.2",
         "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-terser": "^7.0.2",
-        "tailwindcss": "^3.0.23"
+        "tailwindcss": "^3.0.23",
+        "tslib": "^2.3.1",
+        "typescript": "^4.6.3"
     }
 }
