@@ -30,6 +30,8 @@ class ColorPicker extends Field
 
     protected int $debounceTimeout = 500;
 
+    protected bool $nullable = false;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -51,7 +53,7 @@ class ColorPicker extends Field
         });
     }
 
-    public function editorFormat(EditorFormat|string $editorFormat): self
+    public function editorFormat(EditorFormat|string $editorFormat): static
     {
         $this->editorFormat = new EditorFormat($editorFormat);
 
@@ -63,7 +65,7 @@ class ColorPicker extends Field
         return $this->editorFormat;
     }
 
-    public function popupPosition(PopupPosition|string $popupPosition): self
+    public function popupPosition(PopupPosition|string $popupPosition): static
     {
         $this->popupPosition = new PopupPosition($popupPosition);
 
@@ -75,7 +77,7 @@ class ColorPicker extends Field
         return $this->popupPosition;
     }
 
-    public function disablePopup(): self
+    public function disablePopup(): static
     {
         $this->popupPosition = null;
 
@@ -87,7 +89,7 @@ class ColorPicker extends Field
         return $this->popupPosition !== null;
     }
 
-    public function alpha(bool $useAlphaChannel): self
+    public function alpha(bool $useAlphaChannel): static
     {
         $this->alpha = $useAlphaChannel;
 
@@ -99,7 +101,7 @@ class ColorPicker extends Field
         return $this->alpha;
     }
 
-    public function preview(bool $showPreview = true): self
+    public function preview(bool $showPreview = true): static
     {
         $this->preview = $showPreview;
 
@@ -111,7 +113,7 @@ class ColorPicker extends Field
         return $this->preview;
     }
 
-    public function layout(string $layout): self
+    public function layout(string $layout): static
     {
         $this->layout = $layout;
 
@@ -123,7 +125,7 @@ class ColorPicker extends Field
         return $this->layout;
     }
 
-    public function cancelButton(bool $showCancelButton): self
+    public function cancelButton(bool $showCancelButton): static
     {
         $this->cancelButton = $showCancelButton;
 
@@ -135,7 +137,7 @@ class ColorPicker extends Field
         return $this->cancelButton;
     }
 
-    public function template(View | string $template): self
+    public function template(View | string $template): static
     {
         if ($template instanceof View) {
             $this->colorPickerTemplate = $template->render();
@@ -151,7 +153,7 @@ class ColorPicker extends Field
         return $this->colorPickerTemplate;
     }
 
-    public function debounceTimeout(int $timeout): self
+    public function debounceTimeout(int $timeout): static
     {
         $this->debounceTimeout = $timeout;
 
@@ -161,6 +163,20 @@ class ColorPicker extends Field
     public function getDebounceTimeout(): int
     {
         return $this->debounceTimeout;
+    }
+
+    public function nullable(\Closure|bool $condition = true): static
+    {
+        parent::nullable($condition);
+
+        $this->nullable = $this->evaluate($condition);
+
+        return $this;
+    }
+
+    public function isNullable(): bool
+    {
+        return $this->nullable;
     }
 
     /**
@@ -181,6 +197,7 @@ class ColorPicker extends Field
             'template' => $this->getTemplate(),
             'debounceTimeout' => $this->getDebounceTimeout(),
             'preview' => $this->getPreview(),
+            'nullable' => $this->isNullable(),
         ];
     }
 

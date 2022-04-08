@@ -50,13 +50,19 @@ declare global {
     type ExtendedOptions = Options & {
         parent: HTMLElement,
         popupPosition: 'top' | 'right' | 'bottom' | 'left' | null;
+        alpha: boolean;
         statePath: string;
         template: string | null;
         debounceTimeout: number;
         preview: boolean;
+        nullable: boolean;
     };
 
     type UpdateColorFunction = (color: string) => void;
+
+    type ColorProxy = {
+        value: string | null;
+    };
 
     interface Window {
         FilamentColorPicker: {

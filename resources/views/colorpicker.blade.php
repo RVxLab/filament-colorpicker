@@ -1,5 +1,6 @@
 @php
     $popupEnabled = $isPopupEnabled();
+    $nullable = $isNullable();
 @endphp
 
 <x-forms::field-wrapper
@@ -49,6 +50,7 @@
             @class([
                 'color-picker flex flex-wrap mt-1',
                 'shadow-sm' => $popupEnabled,
+                'relative' => $nullable,
             ])
         >
             @includeWhen($getPreview(), 'filament-colorpicker::preview')
@@ -72,6 +74,8 @@
                 readonly="{{ $popupEnabled ? '' : 'readonly' }}"
                 data-color-picker-field
             />
+
+            @includeWhen($nullable, 'filament-colorpicker::clear-button')
 
             @includeUnless($popupEnabled, 'filament-colorpicker::break')
         </div>

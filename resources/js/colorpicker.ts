@@ -21,9 +21,21 @@ function getFormatter(editorFormat: EditorFormat, alpha: boolean): FormatterFunc
 }
 
 function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
-    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template, debounceTimeout, preview } = options;
+    const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template, debounceTimeout, preview, nullable } = options;
 
-    const initialColor = $wire.get<string>(statePath);
+    const pickerColor = new Proxy<ColorProxy>({
+        value: $wire.get<string | null>(statePath),
+    }, {
+        set(target, property: keyof ColorProxy, value: string | null) {
+            target[property] = value;
+
+            updateLivewireProperty(value);
+            updatePreview(value ?? '#00000000');
+            colorPickerInput!.value = value ?? '';
+
+            return true;
+        },
+    });
 
     const colorPickerInput = parent.querySelector<HTMLInputElement>('input[data-color-picker-field]');
 
@@ -33,8 +45,8 @@ function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
 
     const formatColor = getFormatter(editorFormat!, alpha!);
 
-    let updateLivewireProperty = function (color: string) {
-        $wire.set<string>(statePath, color);
+    let updateLivewireProperty = function (color: string | null) {
+        $wire.set<string | null>(statePath, color);
     };
 
     if (null === popupPosition) {
@@ -53,6 +65,23 @@ function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
         };
     }
 
+    if (nullable) {
+        const clearButton = parent.querySelector<HTMLButtonElement>('[data-color-picker-action="clear"]');
+
+        if (!clearButton) {
+            console.warn('Could not find clear button to bind to');
+        } else {
+            clearButton.addEventListener('click', function clearInput(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                pickerColor.value = null;
+
+                return false;
+            });
+        }
+    }
+
     return new Picker({
         parent,
         editorFormat,
@@ -61,21 +90,17 @@ function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
         layout,
         cancelButton,
         template,
-        color: initialColor,
+        color: pickerColor.value ?? '#000000',
         onChange: color => {
-            let newColor = formatColor(color);
+            const newColor = formatColor(color);
             colorPickerInput.value = newColor;
 
-            updatePreview(newColor);
-
             if (null === popupPosition) {
-                updateLivewireProperty(newColor);
+                pickerColor.value = newColor;
             }
         },
         onClose: color => {
-            const newColor = formatColor(color);
-
-            updateLivewireProperty(newColor);
+            pickerColor.value = formatColor(color);
         },
     });
 }
