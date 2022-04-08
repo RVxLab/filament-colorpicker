@@ -2,6 +2,14 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.4.1 - Add missing blade file - 2022-04-08
+
+## What's Changed
+
+- Added missing blade file
+
+**Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.4.0...1.4.1
+
 ## v1.4.0 - Nullable pickers - 2022-04-08
 
 ## What's Changed
