@@ -58,10 +58,13 @@ declare global {
         nullable: boolean;
     };
 
-    type UpdateColorFunction = (color: string) => void;
+    type UpdatePreviewFunction = (color: string) => void;
+    type UpdateColorFunction = (statePath: string, color: ColorValue) => void;
+
+    type ColorValue = string | null;
 
     type ColorProxy = {
-        value: string | null;
+        value: ColorValue;
     };
 
     interface Window {

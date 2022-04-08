@@ -20,22 +20,49 @@ function getFormatter(editorFormat: EditorFormat, alpha: boolean): FormatterFunc
     return formatters[key];
 }
 
+function createPreviewUpdated(shouldPreview: boolean, previewElement: HTMLElement | null): UpdatePreviewFunction {
+    if (!shouldPreview || !previewElement) {
+        return () => {
+            // noop
+        };
+    }
+
+    return (color: string) => {
+        previewElement!.style.background = color;
+    };
+}
+
+function createUpdater($wire: LivewireProxy, debounceTime: number): UpdateColorFunction {
+    let updater: UpdateColorFunction = (statePath, color) => {
+        $wire.set<ColorValue>(statePath, color);
+    };
+
+    if (debounceTime > 0) {
+        updater = debounce(updater, debounceTime);
+    }
+
+    return updater;
+}
+
+function initializeClear(clearButton: HTMLButtonElement | null, pickerColor: ColorProxy): void {
+    if (clearButton) {
+        const clearInput = (e: MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            pickerColor.value = null;
+
+            return false;
+        };
+
+        clearButton.addEventListener('click', clearInput);
+    }
+
+    console.warn('Could not find clear button to bind to');
+}
+
 function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
     const { parent, editorFormat, popupPosition, alpha, layout, cancelButton, statePath, template, debounceTimeout, preview, nullable } = options;
-
-    const pickerColor = new Proxy<ColorProxy>({
-        value: $wire.get<string | null>(statePath),
-    }, {
-        set(target, property: keyof ColorProxy, value: string | null) {
-            target[property] = value;
-
-            updateLivewireProperty(value);
-            updatePreview(value ?? '#00000000');
-            colorPickerInput!.value = value ?? '';
-
-            return true;
-        },
-    });
 
     const colorPickerInput = parent.querySelector<HTMLInputElement>('input[data-color-picker-field]');
 
@@ -43,43 +70,37 @@ function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
         throw new Error('Could not find a color picker input to bind to');
     }
 
+    const pickerColor = new Proxy<ColorProxy>({
+        value: $wire.get<string | null>(statePath),
+    }, {
+        set(target, property: keyof ColorProxy, value: string | null) {
+            target[property] = value;
+
+            updateLivewireProperty(statePath, value);
+            updatePreview(value ?? '#00000000');
+            colorPickerInput.value = value ?? '';
+
+            return true;
+        },
+    });
+
     const formatColor = getFormatter(editorFormat!, alpha!);
 
-    let updateLivewireProperty = function (color: string | null) {
-        $wire.set<string | null>(statePath, color);
-    };
+    const updateLivewireProperty = createUpdater(
+        $wire,
+        null === popupPosition ? debounceTimeout : 0,
+    );
 
-    if (null === popupPosition) {
-        updateLivewireProperty = debounce(updateLivewireProperty, debounceTimeout);
-    }
-
-    let updatePreview: UpdateColorFunction = function () {
-        // noop
-    };
-
-    let previewElement = parent.querySelector<HTMLElement>('[data-preview]');
-
-    if (preview && previewElement) {
-        updatePreview = function (color: string) {
-            previewElement!.style.background = color;
-        };
-    }
+    const updatePreview = createPreviewUpdated(
+        preview,
+        parent.querySelector<HTMLElement>('[data-preview]'),
+    );
 
     if (nullable) {
-        const clearButton = parent.querySelector<HTMLButtonElement>('[data-color-picker-action="clear"]');
-
-        if (!clearButton) {
-            console.warn('Could not find clear button to bind to');
-        } else {
-            clearButton.addEventListener('click', function clearInput(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                pickerColor.value = null;
-
-                return false;
-            });
-        }
+        initializeClear(
+            parent.querySelector<HTMLButtonElement>('[data-color-picker-action="clear"]'),
+            pickerColor,
+        );
     }
 
     return new Picker({
@@ -90,10 +111,12 @@ function make($wire: LivewireProxy, options: ExtendedOptions): Picker {
         layout,
         cancelButton,
         template,
-        color: pickerColor.value ?? '#000000',
+        color: pickerColor.value ?? '#00000000',
         onChange: color => {
             const newColor = formatColor(color);
             colorPickerInput.value = newColor;
+
+            updatePreview(newColor);
 
             if (null === popupPosition) {
                 pickerColor.value = newColor;
