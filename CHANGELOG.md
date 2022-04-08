@@ -2,6 +2,28 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.4.0 - Nullable pickers - 2022-04-08
+
+## What's Changed
+
+### Added
+
+- Add support for `null` values
+
+### Fixed
+
+- Fixed pickers with the popup disabled looking strange on larger screens
+
+### Security
+
+- Bump minimist from 1.2.5 to 1.2.6 by @dependabot in https://github.com/RVxLab/filament-colorpicker/pull/16
+
+## New Contributors
+
+- @dependabot made their first contribution in https://github.com/RVxLab/filament-colorpicker/pull/16
+
+**Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.3.3...1.4.0
+
 ## v1.3.3 - Dark Mode and more reliable script loading - 2022-03-28
 
 ### What's Changed
