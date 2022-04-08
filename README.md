@@ -204,6 +204,29 @@ public static function form(Form $form): Form
 }
 ```
 
+### Nullable
+
+***Default: false***
+
+To make the color picker nullable you can call the `nullable` method:
+
+```php
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            \RVxLab\FilamentColorPicker\Forms\ColorPicker::make('color')
+                ->nullable(),
+        ]);
+}
+```
+
+#### Known issue
+
+Because Vanilla Picker does not handle null values properly the default initial value of a null-ed picker will be `#000000` or `#00000000` depending on the `alpha` setting.
+
+This goes away when the picker is updated or the form is saved.
+
 ## Color swatch
 
 To display a swatch on the table you can add the following column:
