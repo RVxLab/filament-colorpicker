@@ -59,6 +59,7 @@
             ]
         }
     },
+    "abandoned": "filament/forms",
     "minimum-stability": "dev",
     "prefer-stable": true
 }

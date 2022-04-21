@@ -9,6 +9,12 @@
 
 ---
 
+# Deprecated
+
+**As of Filament v2.10.45 there's a built-in colour picker. Because of that I decided to deprecate this package and encourage everyone to use [the built-in colour picker instead](https://filamentphp.com/docs/2.x/forms/fields#color-picker). Thank you all for the support, bug reports and pull requests ❤️**
+
+---
+
 Filament Color Picker is a package for [Laravel Filament](https://github.com/laravel-filament/filament) that wraps [Vanilla Picker](https://github.com/Sphinxxxx/vanilla-picker) into a usable component.
 
 ## Installation
