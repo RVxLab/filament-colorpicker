@@ -2,6 +2,12 @@
 
 All notable changes to `filament-colorpicker` will be documented in this file.
 
+## v1.4.2 - So long, and thanks for all the fish! - 2022-04-21
+
+This release marks the deprecation of this package. Use [Filament's built-in colour picker instead](https://filamentphp.com/docs/2.x/forms/fields#color-picker)
+
+**Full Changelog**: https://github.com/RVxLab/filament-colorpicker/compare/1.4.1...1.4.2
+
 ## v1.4.1 - Add missing blade file - 2022-04-08
 
 ## What's Changed
